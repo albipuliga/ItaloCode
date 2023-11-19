@@ -2,7 +2,7 @@
 # Italian Cuisine Inspired Programming Language
 
 ## Project Overview
-This  aims to create a simple, user-friendly programming language based on C, inspired by Italian cuisine and language. It's designed to make programming accessible and engaging, especially for Italian speakers and culinary enthusiasts.
+This project aims to create a simple, user-friendly programming language based on C, inspired by Italian cuisine and language. It's designed to make programming accessible and engaging, especially for Italian speakers and culinary enthusiasts.
 
 ## Features
 - **Culinary-Themed Syntax**: Utilizes Italian culinary terms for programming constructs, making it intuitive for our target audience.
