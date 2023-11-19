@@ -18,6 +18,8 @@ typedef enum {
 } TokenType;
 
 
+
+
 // given an idex it will return the name of the unum token
 const char* getTokenTypeName(TokenType type) {
     const char* typeNames[] = {
@@ -40,11 +42,17 @@ const char* getTokenTypeName(TokenType type) {
     return "UNKNOWN_TOKEN_TYPE";
 }
 
+
+
+
 // Token structure
 typedef struct {
     TokenType type;
     char* lexeme;
 } Token;
+
+
+
 
 // Function to check if a string is a keyword and return its token type
 TokenType checkKeyword(char* str) {
@@ -71,6 +79,8 @@ TokenType checkKeyword(char* str) {
 }
 
 
+
+
 // Function to tokenize a single word
 Token tokenizeWord(char* word) {
     Token token;
@@ -79,46 +89,52 @@ Token tokenizeWord(char* word) {
     return token;
 }
 
+
+
+
 // Main lexer function
-void lexer(const char* source) {
-    char currentWord[256]; 
-    int wordIndex = 0;
+void lexer(const char* source) {        //takes a constant character pointer (const char*) as an argument.
+    char currentWord[256];      // Declares an array of characters named currentWord. Used to store the current word being processed by the lexer.
+    int wordIndex = 0;      // used to keep track of the current index in the currentWord array.
 
-    for (int i = 0; source[i] != '\0'; i++) {
-        char currentChar = source[i];
+    for (int i = 0; source[i] != '\0'; i++) {       // loop that iterates over each character in the source string until the null terminator ('\0') is encountered.
+        char currentChar = source[i];       // Assigns the current character to a variable named currentChar.
 
-        if (isspace(currentChar) || ispunct(currentChar)) {
-            if (wordIndex != 0) {
-                currentWord[wordIndex] = '\0';
-                Token token = tokenizeWord(currentWord);
-                const char* typeName = getTokenTypeName(token.type);
-                printf("TokenName: %s, Token: %d, Lexeme: %s\n", typeName, token.type, token.lexeme);
-                free(token.lexeme);
-                wordIndex = 0;
+        if (isspace(currentChar) || ispunct(currentChar)) {     //Checks if the current character is a space or punctuation 
+            if (wordIndex != 0) {       // Checks if there are characters in currentWord
+                currentWord[wordIndex] = '\0';      // Appends a null terminator to currentWord, indicating the end of the current word.
+                Token token = tokenizeWord(currentWord);        // Calls the tokenizeWord function with currentWord as an argument to create a Token structure named token
+                const char* typeName = getTokenTypeName(token.type);        // Gets the string representation of the token type
+                printf("TokenName: %s, Token: %d, Lexeme: %s\n", typeName, token.type, token.lexeme);       // Prints information about the token
+                free(token.lexeme);     // frees memory
+                wordIndex = 0;      // Resets wordIndex to 0 for the next word.
             }
 
-            if (ispunct(currentChar)) {
+            if (ispunct(currentChar)) {     // Checks if the current character is a punctuation mark.
                 // Handle punctuation and braces as separate tokens
                 // This is a simplification; in a full lexer, you'd handle each punctuation mark separately
-                TokenType type = (currentChar == ';' || currentChar == ',') ? TOKEN_PUNCTUATION : TOKEN_BRACE;
+                TokenType type = (currentChar == ';' || currentChar == ',') ? TOKEN_PUNCTUATION : TOKEN_BRACE;      // Determines the token type based on whether the current character is a semicolon or comma
                 printf("Token: %d, Lexeme: %c\n", type, currentChar);
             }
         } else {
-            currentWord[wordIndex++] = currentChar;
+            currentWord[wordIndex++] = currentChar;     // Adds the current character to currentWord and increments wordIndex to move to the next position in the array.
         }
     }
 
     // Handle the last word
     if (wordIndex != 0) {
         currentWord[wordIndex] = '\0';
-        Token token = tokenizeWord(currentWord);
+        Token token = tokenizeWord(currentWord);        // Calls the tokenizeWord function with currentWord as an argument to create a Token structure named token
         printf("Token: %d, Lexeme: %s\n", token.type, token.lexeme);
         free(token.lexeme);
     }
 }
 
+
+
+
 int main() {
-    const char* sourceCode = "CIAO PASTA CARBS ; { }"; // Example source codeπ
+    const char* sourceCode = "CIAO PASTA CARBS ; { }"; // Example source code
     lexer(sourceCode);
     return 0;
 }
