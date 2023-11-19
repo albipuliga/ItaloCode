@@ -41,3 +41,18 @@ This project is licensed under the MIT License - see the `LICENSE.md` file for d
 ## Acknowledgments
 - Thanks to the Italian culinary culture for inspiration.
 - Appreciation to our educational institution for providing the platform for this project.
+
+## Develop a Lexer (Tokenizer):
+<p align="center">
+  <img src="https://cdn-media-1.freecodecamp.org/images/qade0oMhjMIBsiv29aYB3YpAF-7MmO0mDndO" alt="Image" width="250">
+</p>
+
+- ‘Lex’ is short for lexical analysis
+- Write regular expressions or a similar method to recognize keywords, identifiers, literals, and symbols.
+- Implement a lexer that tokenizes the input code into meaningful components.
+- Lexter split a bunch of text into tokens.
+- Lexter is a Tokenizer
+- Token might be a variable or function name or an operator or a number.
+- A frase is a sequence of tokens => the grammar/struction of our lenguage
+- Lexter take a string and of source code and spit out a list containing every token.
+
