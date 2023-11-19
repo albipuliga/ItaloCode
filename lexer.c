@@ -18,6 +18,28 @@ typedef enum {
 } TokenType;
 
 
+// given an idex it will return the name of the unum token
+const char* getTokenTypeName(TokenType type) {
+    const char* typeNames[] = {
+        "TOKEN_KEYWORD",
+        "TOKEN_DATATYPE",
+        "TOKEN_ARITHMETIC_OP",
+        "TOKEN_COMPARISON_OP",
+        "TOKEN_LOGICAL_OP",
+        "TOKEN_PUNCTUATION",
+        "TOKEN_BRACE",
+        "SINGLE_LINE_COMMENT",
+        "TOKEN_IDENTIFIER",
+        "TOKEN_EOF"
+    };
+
+    if (type >= TOKEN_KEYWORD && type <= TOKEN_EOF) {
+        return typeNames[type];
+    }
+
+    return "UNKNOWN_TOKEN_TYPE";
+}
+
 // Token structure
 typedef struct {
     TokenType type;
@@ -59,7 +81,7 @@ Token tokenizeWord(char* word) {
 
 // Main lexer function
 void lexer(const char* source) {
-    char currentWord[256]; // Adjust size as necessary
+    char currentWord[256]; 
     int wordIndex = 0;
 
     for (int i = 0; source[i] != '\0'; i++) {
@@ -69,7 +91,8 @@ void lexer(const char* source) {
             if (wordIndex != 0) {
                 currentWord[wordIndex] = '\0';
                 Token token = tokenizeWord(currentWord);
-                printf("Token: %d, Lexeme: %s\n", token.type, token.lexeme);
+                const char* typeName = getTokenTypeName(token.type);
+                printf("TokenName: %s, Token: %d, Lexeme: %s\n", typeName, token.type, token.lexeme);
                 free(token.lexeme);
                 wordIndex = 0;
             }
