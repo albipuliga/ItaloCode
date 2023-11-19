@@ -31,6 +31,7 @@ Refer to the documentation for detailed syntax and examples.
 - Diana Rubaga
 - Alberto Puliga
 - Gregorio Orlando
+
 ## Develop a Lexer (Tokenizer):
 <p align="center">
   <img src="https://cdn-media-1.freecodecamp.org/images/qade0oMhjMIBsiv29aYB3YpAF-7MmO0mDndO" alt="Image" width="250">
@@ -44,4 +45,9 @@ Refer to the documentation for detailed syntax and examples.
 - Token might be a variable or function name or an operator or a number.
 - A frase is a sequence of tokens => the grammar/struction of our lenguage
 - Lexter take a string and of source code and spit out a list containing every token.
+- Lexer may do tasks such as removing comments or detecting if something is a number or identifier.
 
+
+- ### Flex:
+    - Flex, is a program that generates lexers. 
+    -  You give it a file which has a special syntax to describe the language’s grammar. From that it generates a C program which lexes a string and produces the desired output.
