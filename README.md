@@ -27,17 +27,7 @@ Write your code using the Italian culinary-themed syntax. For example:
 
 Refer to the documentation for detailed syntax and examples.
 
-## Contributing
-We welcome contributions to improve this language. Please read `CONTRIBUTING.md` for details on our code of conduct, and the process for submitting pull requests.
-
 ## Authors
 - Diana Rubaga
 - Alberto Puliga
 - Gregorio Orlando
-
-## License
-This project is licensed under the MIT License - see the `LICENSE.md` file for details.
-
-## Acknowledgments
-- Thanks to the Italian culinary culture for inspiration.
-- Appreciation to our educational institution for providing the platform for this project.
