@@ -27,17 +27,27 @@ Write your code using the Italian culinary-themed syntax. For example:
 
 Refer to the documentation for detailed syntax and examples.
 
-## Contributing
-We welcome contributions to improve this language. Please read `CONTRIBUTING.md` for details on our code of conduct, and the process for submitting pull requests.
-
 ## Authors
 - Diana Rubaga
 - Alberto Puliga
 - Gregorio Orlando
 
-## License
-This project is licensed under the MIT License - see the `LICENSE.md` file for details.
+## Develop a Lexer (Tokenizer):
+<p align="center">
+  <img src="https://cdn-media-1.freecodecamp.org/images/qade0oMhjMIBsiv29aYB3YpAF-7MmO0mDndO" alt="Image" width="250">
+</p>
 
-## Acknowledgments
-- Thanks to the Italian culinary culture for inspiration.
-- Appreciation to our educational institution for providing the platform for this project.
+- ‘Lex’ is short for lexical analysis
+- Write regular expressions or a similar method to recognize keywords, identifiers, literals, and symbols.
+- Implement a lexer that tokenizes the input code into meaningful components.
+- Lexter split a bunch of text into tokens.
+- Lexter is a Tokenizer
+- Token might be a variable or function name or an operator or a number.
+- A frase is a sequence of tokens => the grammar/struction of our lenguage
+- Lexter take a string and of source code and spit out a list containing every token.
+- Lexer may do tasks such as removing comments or detecting if something is a number or identifier.
+
+
+- ### Flex:
+    - Flex, is a program that generates lexers. 
+    -  You give it a file which has a special syntax to describe the language’s grammar. From that it generates a C program which lexes a string and produces the desired output.
