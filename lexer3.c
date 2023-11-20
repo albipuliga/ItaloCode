@@ -1,8 +1,7 @@
 /*
-MEDIUM HARD WAY TO TOKENISE:
-This lexer work really goot, take a look
+REALLY COMPLICATE WAY TO TOKENISE:
+it don't work really well
 */
-
 
 #include <stdio.h>
 #include <string.h>
@@ -122,40 +121,7 @@ Token tokenizeWord(char* word) {
 
 
 
-/*BEST LEXER*/
-void lexer(const char* input) {
-    const char delimiters[] = " \t\n"; // Word delimiters
-    char* copy = strdup(input); // Make a copy of the input string
-    char* word = strtok(copy, delimiters); // Tokenize the first word
-
-    while (word != NULL) {
-        // Tokenize the current word
-        Token token = tokenizeWord(word);
-
-        // Get the token type name
-        const char* typeName = getTokenTypeName(token.type);
-
-        // Print the token information
-        printf("TokenName: %s, Token: %d, Lexeme: %s\n", typeName, token.type, token.lexeme);
-
-        // Tokenize the next word
-        word = strtok(NULL, delimiters);
-    }
-
-    // Free the memory allocated for the copy
-    free(copy);
-}
-
-int main() {
-    const char* input = "CIAO PASTA + 42 // This is a comment";
-    lexer(input);
-
-    return 0;
-}
-
-
-/*
-COMPLICATE CODE:
+/*COMPLICATE CODE*/
 
 // Main lexer function
 void lexer(const char* source) {        //takes a constant character pointer (const char*) as an argument.
@@ -213,33 +179,7 @@ int main() {
     lexer(sourceCode);
     return 0;
 }
-*/
 
 
 
 
-
-/*
-SIMPLER WAY TO TOKENISE (BUT LESS STRONG):
-
-// Function to tokenize input string
-void tokenizeInput(char* input) {
-    char* token = strtok(input, " "); //strtok will split the string whenever it encounters a space.
-    
-    while (token != NULL) {
-        TokenType type = checkKeyword(token);
-        printf("Lexeme: %s, Type: %d\n", token, type);
-        token = strtok(NULL, " ");
-    }
-}
-
-int main() {
-    // Example usage
-    char input[] = "for ( int i = 0; i < 10; i + + ) { CIAO } while (x > 0) { PASTA }";
-    
-    // Call the tokenizeInput function with the input string
-    tokenizeInput(input);
-
-    return 0;
-}
-*/
