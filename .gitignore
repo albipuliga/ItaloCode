@@ -1,2 +1,6 @@
  .idea/
 *.exe
+lexer2.c
+lexer3.c
+lexer4.c
+

@@ -124,7 +124,7 @@ void tokenizeInput(char* input) {
 
 int main() {
     // Example usage
-    char input[] = "for ( int i = 0; i < 10; i + + ) { CIAO } while (x > 0) { PASTA }";
+    char input[] = "for ( int i = 0; i < 10; i + + ) { CIAO } while ( x > 0 ) { PASTA }";
     
     // Call the tokenizeInput function with the input string
     tokenizeInput(input);

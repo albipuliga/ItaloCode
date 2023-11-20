@@ -17,12 +17,13 @@ typedef enum {
     TOKEN_COMPARISON_OP,    // ==, !=, <, >, <=, >=, =
     TOKEN_LOGICAL_OP,       // E, OPPURE
     TOKEN_PUNCTUATION,      // ;, , (comma), etc.
-    TOKEN_BRACE,            // {, }, [, ]
+    TOKEN_BRACE,            // {, }, [, ] ,(, )
     SINGLE_LINE_COMMENT,    // // Comment
     TOKEN_IDENTIFIER,       // User-defined names
     TOKEN_NUMBER,           // Numeric literals
     TOKEN_FOR_LOOP,         // "for" loop
     TOKEN_WHILE_LOOP,       // "while" loop
+    DATA_TYPE,              // int, float
     TOKEN_EOF               // End of file/input
 } TokenType;
 
@@ -43,7 +44,8 @@ const char* getTokenTypeName(TokenType type) {
         "TOKEN_IDENTIFIER",
         "TOKEN_NUMBER",    
         "TOKEN_FOR_LOOP",         
-        "TOKEN_WHILE_LOOP",            
+        "TOKEN_WHILE_LOOP",  
+        "DATA_TYPE",        
         "TOKEN_EOF"
     };
 
@@ -88,6 +90,10 @@ TokenType checkKeyword(char* str) {
     else if (strcmp(str, "!=") == 0 || strcmp(str, "<") == 0 || strcmp(str, ">") == 0 || strcmp(str, "=") == 0) {
         return TOKEN_COMPARISON_OP;
     }
+    // Check for Punctuation
+    else if (strcmp(str, ";") == 0 || strcmp(str, ",") == 0 || strcmp(str, ":") == 0 || strcmp(str, "|") == 0 || strcmp(str, "\"") == 0) {
+        return TOKEN_PUNCTUATION;
+    }
     // Check for Numbers
     else if (strspn(str, "0123456789") == strlen(str)) {
         return TOKEN_NUMBER;
@@ -103,6 +109,14 @@ TokenType checkKeyword(char* str) {
     // Check for Single Line Comment
     else if (strncmp(str, "//", 2) == 0) {
         return SINGLE_LINE_COMMENT;
+    }
+    // Check for Brace
+    else if (strcmp(str, "[") == 0 || strcmp(str, "]") == 0 || strcmp(str, "{") == 0 || strcmp(str, "}") == 0 || strcmp(str, "(") == 0 || strcmp(str, ")") == 0 ) {
+        return TOKEN_BRACE;
+    }
+    // Check for Data Types
+    else if (strcmp(str, "int") == 0 || strcmp(str, "float") == 0 ) {
+        return DATA_TYPE;
     }
     // Default to Identifier
     else {
@@ -136,7 +150,7 @@ void lexer(const char* input) {
         const char* typeName = getTokenTypeName(token.type);
 
         // Print the token information
-        printf("TokenName: %s, Token: %d, Lexeme: %s\n", typeName, token.type, token.lexeme);
+        printf(" Lexeme: %s, TokenName: %s, Token: %d\n", token.lexeme, typeName, token.type);
 
         // Tokenize the next word
         word = strtok(NULL, delimiters);
@@ -145,101 +159,11 @@ void lexer(const char* input) {
     // Free the memory allocated for the copy
     free(copy);
 }
-
+ 
 int main() {
-    const char* input = "CIAO PASTA + 42 // This is a comment";
+    const char* input = "for ( int i = 0 ; i < 10 ; i + + ) { CIAO } while ( x > 0 ) { PASTA } 3 4 34";
     lexer(input);
 
     return 0;
 }
 
-
-/*
-COMPLICATE CODE:
-
-// Main lexer function
-void lexer(const char* source) {        //takes a constant character pointer (const char*) as an argument.
-    char currentWord[256];      // Declares an array of characters named currentWord. Used to store the current word being processed by the lexer.
-    int wordIndex = 0;      // used to keep track of the current index in the currentWord array.
-
-    for (int i = 0; source[i] != '\0'; i++) {       // loop that iterates over each character in the source string until the null terminator ('\0') is encountered.
-        char currentChar = source[i];       // Assigns the current character to a variable named currentChar.
-
-        if (isspace(currentChar) || ispunct(currentChar)) {     //Checks if the current character is a space or punctuation 
-            if (wordIndex != 0) {       // Checks if there are characters in currentWord
-                currentWord[wordIndex] = '\0';      // Appends a null terminator to currentWord, indicating the end of the current word.
-                Token token = tokenizeWord(currentWord);        // Calls the tokenizeWord function with currentWord as an argument to create a Token structure named token
-                const char* typeName = getTokenTypeName(token.type);        // Gets the string representation of the token type
-                printf("TokenName: %s, Token: %d, Lexeme: %s\n", typeName, token.type, token.lexeme);       // Prints information about the token
-                free(token.lexeme);     // frees memory
-                wordIndex = 0;      // Resets wordIndex to 0 for the next word.
-            }
-
-            if (ispunct(currentChar)) {     // Checks if the current character is a punctuation mark.
-                // Handle punctuation and braces as separate tokens
-                // This is a simplification; in a full lexer, you'd handle each punctuation mark separately
-                TokenType type;
-                if (currentChar == ';' || currentChar == ',') { // Determines the token type based on whether the current character is a semicolon or comma
-                    type = TOKEN_PUNCTUATION;
-                } else if (currentChar == '+' || currentChar == '-' || currentChar == '*' || currentChar == '/') {
-                    type = TOKEN_ARITHMETIC_OP;
-                } else if (currentChar == '=' || currentChar == '!' || currentChar == '<' || currentChar == '>') {
-                // Check for the possibility of comparison operators
-                type = TOKEN_COMPARISON_OP;
-                } else {
-                    type = TOKEN_BRACE;
-                }      
-                printf("Token: %d, Lexeme: %c\n", type, currentChar);
-            }
-        } else {
-            currentWord[wordIndex++] = currentChar;     // Adds the current character to currentWord and increments wordIndex to move to the next position in the array.
-        }
-    }
-
-    // Handle the last word
-    if (wordIndex != 0) {
-        currentWord[wordIndex] = '\0';
-        Token token = tokenizeWord(currentWord);        // Calls the tokenizeWord function with currentWord as an argument to create a Token structure named token
-        printf("Token: %d, Lexeme: %s\n", token.type, token.lexeme);
-        free(token.lexeme);
-    }
-}
-
-
-
-
-int main() {
-    const char* sourceCode = "CIAO PASTA CARBS ; {} = == + *"; // Example source code
-    lexer(sourceCode);
-    return 0;
-}
-*/
-
-
-
-
-
-/*
-SIMPLER WAY TO TOKENISE (BUT LESS STRONG):
-
-// Function to tokenize input string
-void tokenizeInput(char* input) {
-    char* token = strtok(input, " "); //strtok will split the string whenever it encounters a space.
-    
-    while (token != NULL) {
-        TokenType type = checkKeyword(token);
-        printf("Lexeme: %s, Type: %d\n", token, type);
-        token = strtok(NULL, " ");
-    }
-}
-
-int main() {
-    // Example usage
-    char input[] = "for ( int i = 0; i < 10; i + + ) { CIAO } while (x > 0) { PASTA }";
-    
-    // Call the tokenizeInput function with the input string
-    tokenizeInput(input);
-
-    return 0;
-}
-*/
