@@ -1,9 +1,3 @@
-/*
-MEDIUM HARD WAY TO TOKENISE:
-This lexer work really goot, take a look
-*/
-
-
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -23,12 +17,11 @@ typedef enum {
     TOKEN_NUMBER,           // Numeric literals
     TOKEN_FOR_LOOP,         // "for" loop
     TOKEN_WHILE_LOOP,       // "while" loop
-    DATA_TYPE,              // int, float
     TOKEN_EOF               // End of file/input
 } TokenType;
 
 
-// given an idex it will return the name of the unum token
+// given an index it will return the name of the unum token
 const char *getTokenTypeName(TokenType type) {
     const char *typeNames[] = {
             "TOKEN_KEYWORD",
@@ -154,10 +147,10 @@ void lexer(const char *input) {
     free(copy);
 }
 
-int main() {
-    const char *input = "for ( int i = 0 ; i < 10 ; i + + ) { CIAO } while ( x > 0 ) { PASTA } 3 4 34";
-    lexer(input);
-
-    return 0;
-}
+//int main() {
+//    const char *input = "for ( int i = 0 ; i < 10 ; i + + ) { CIAO } while ( x > 0 ) { PASTA } 3 4 34";
+//    lexer(input);
+//
+//    return 0;
+//}
 
