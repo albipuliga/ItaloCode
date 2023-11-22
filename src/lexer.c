@@ -65,8 +65,10 @@ typedef struct {
 // Function to check if a string is a keyword and return its token type
 TokenType checkKeyword(char *str) {
     // Check for Keywords
-    if (strcmp(str, "CIAO") == 0 || strcmp(str, "PASTA") == 0 ||
-        strcmp(str, "ALDENTE") == 0 /* ... other keywords ... */) {
+    if (strcmp(str, "CIAO") == 0 || strcmp(str, "CIAOCIAO") == 0 ||strcmp(str, "Primo") == 0 ||
+        strcmp(str, "Antipasti") == 0 || strcmp(str, "Posate") == 0 || strcmp(str, "Leggi") == 0 ||
+        strcmp(str, "Scrivi") == 0 || strcmp(str, "Basta") == 0  || strcmp(str, "Ritorno") == 0 ||
+        strcmp(str, "Frutta") == 0 ) {
         return TOKEN_KEYWORD;
     }
         // Check for Data Types
@@ -79,7 +81,7 @@ TokenType checkKeyword(char *str) {
         return TOKEN_LOGICAL_OP;
     }
         // Check for Arithmetic Operators
-    else if (strcmp(str, "+") == 0 || strcmp(str, "-") == 0 || strcmp(str, "*") == 0 || strcmp(str, "/") == 0) {
+    else if (strcmp(str, "piu") == 0 || strcmp(str, "meno") == 0 || strcmp(str, "per") == 0 || strcmp(str, "diviso") == 0) {
         return TOKEN_ARITHMETIC_OP;
     }
         // Check for Comparison Operators
@@ -96,15 +98,15 @@ TokenType checkKeyword(char *str) {
         return TOKEN_NUMBER;
     }
         // Check for "for" loop
-    else if (strcmp(str, "for") == 0) {
+    else if (strcmp(str, "In ") == 0 || strcmp(str, "Forno") == 0 || strcmp(str, "gradi") == 0 ) {
         return TOKEN_FOR_LOOP;
     }
         // Check for "while" loop
-    else if (strcmp(str, "while") == 0) {
+    else if (strcmp(str, "In") == 0 || strcmp(str, "Padella") == 0 || strcmp(str, "min") == 0  ){
         return TOKEN_WHILE_LOOP;
     }
         // Check for Single Line Comment
-    else if (strncmp(str, "//", 2) == 0) {
+    else if (strncmp(str, "PS", 2) == 0) {
         return SINGLE_LINE_COMMENT;
     }
         // Check for Brace
@@ -112,11 +114,7 @@ TokenType checkKeyword(char *str) {
              strcmp(str, "(") == 0 || strcmp(str, ")") == 0) {
         return TOKEN_BRACE;
     }
-        // Check for Data Types
-    else if (strcmp(str, "int") == 0 || strcmp(str, "float") == 0) {
-        return DATA_TYPE;
-    }
-        // Default to Identifier
+        // Default to Identifier is variable
     else {
         return TOKEN_IDENTIFIER;
     }
