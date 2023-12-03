@@ -147,10 +147,11 @@ void lexer(const char *input) {
     free(copy);
 }
 
-//int main() {
-//    const char *input = "for ( int i = 0 ; i < 10 ; i + + ) { CIAO } while ( x > 0 ) { PASTA } 3 4 34";
-//    lexer(input);
-//
-//    return 0;
-//}
+int main() {
+    //const char *input = "for ( int i = 0 ; i < 10 ; i + + ) { CIAO } while ( x > 0 ) { PASTA } 3 4 34";
+    const char *input = "12 , ; Forno PS [ piu OPPURE VEGGIE OLIO Frutta CIAOCIAO";
+    lexer(input);
+
+    return 0;
+}
 
