@@ -261,6 +261,38 @@ void printAST(TreeNode *root) {
             printf("UNKNOWN_NODE_TYPE");
     }
 }
+// Print AST with indentation
+void printASTIndented(TreeNode* root, int level) {
+    if (root == NULL) {
+        return;
+    }
+
+    // Print spaces for indentation
+    for (int i = 0; i < level; ++i) {
+        printf("  ");
+    }
+
+    switch (root->type) {
+        case PROGRAM_NODE:
+        case EXPRESSION_NODE:
+            printf("Expression:\n");
+            printASTIndented(root->left, level + 1);
+            break;
+
+        case OPERATION_NODE:
+            printf("Operation: %s\n", getTokenTypeName(root->token.type));
+            printASTIndented(root->left, level + 1);
+            printASTIndented(root->right, level + 1);
+            break;
+
+        case LITERAL_NODE:
+            printf("Literal: %s\n", root->token.lexeme);
+            break;
+
+        default:
+            printf("UNKNOWN_NODE_TYPE\n");
+    }
+}
 
 int main() {
     const char *input = "12 piu 4 per 6";
@@ -276,6 +308,8 @@ int main() {
 
     // Print AST
     printAST(ast);
+    printf("\n");
+    printASTIndented(ast, 0);
     printf("\n");
 
     return 0;
