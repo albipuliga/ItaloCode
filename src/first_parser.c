@@ -144,26 +144,6 @@ void lexer(const char *input) {
     free(copy);
 }
 
-int test() {
-    //const char *input = "for ( int i = 0 ; i < 10 ; i + + ) { CIAO } while ( x > 0 ) { PASTA } 3 4 34";
-    const char *input = "12 piu oppure ciaociao ( )";
-    lexer(input);
-    return 0;
-}
-// void main() {test();}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -337,28 +317,42 @@ int evaluate(TreeNode *node) {
     }
 }
 int main() {
-    const char *input = "12 piu 4 per 6 piu 3";
-    const char delimiters[] = " \t\n"; // Word delimiters
-    char *copy = strdup(input); // Make a copy of the input string
-    char *word = strtok(copy, delimiters); // Tokenize the first word
-    Token tokens[100]; // Array of tokens
-    int tokenCount = 0; // Counter for the number of tokens
+    FILE *file;
+    char buffer[1024]; // Buffer to store each line of the file
 
-    while (word != NULL)
-    {
-        tokens[tokenCount++] = tokenizeWord(word);
-        word = strtok(NULL, delimiters);
+    // Open the file
+    file = fopen("src/input.txt", "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return 1;
     }
-    free(copy);
 
-    TreeNode *ast = parseProgram(tokens);
+    // Read and process each line of the file
+    while (fgets(buffer, sizeof(buffer), file)) {
+        const char delimiters[] = " ciaociao"; // Word delimiters
+        char *copy = strdup(buffer); // Make a copy of the buffer
+        char *word = strtok(copy, delimiters); // Tokenize the first word
+        Token tokens[100]; // Array of tokens
+        int tokenCount = 0; // Counter for the number of tokens
 
-    // Print AST
-    printAST(ast);
-    printf("\n");
-    printASTIndented(ast, 0);
-    printf("\n");
-    int result = evaluate(ast);
-    printf("Evaluation Result: %d\n", result);
+        while (word != NULL) {
+            tokens[tokenCount++] = tokenizeWord(word);
+            word = strtok(NULL, delimiters);
+        }
+
+        free(copy);
+
+        TreeNode *ast = parseProgram(tokens);
+
+        // Print AST
+        printAST(ast);
+        printf("\n");
+        printASTIndented(ast, 0);
+        printf("\n");
+        int result = evaluate(ast);
+        printf("Evaluation Result: %d\n", result);
+    }
+
+    fclose(file); // Close the file
     return 0;
 }
