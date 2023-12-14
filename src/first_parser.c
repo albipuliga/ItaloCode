@@ -3,6 +3,8 @@
 #include <ctype.h>
 #include <stdlib.h>
 
+
+
 // Token types
 typedef enum {
     CIAO,                   //
@@ -150,3 +152,131 @@ int test() {
 }
 // void main() {test();}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// AST Node types
+typedef enum {
+    PROGRAM_NODE,
+    EXPRESSION_NODE,
+    OPERATION_NODE,
+    LITERAL_NODE,
+} NodeType;
+
+// AST Node structure
+typedef struct TreeNode {
+    NodeType type;
+    Token token; // Token associated with the node (for literals and operators)
+    struct TreeNode *left; // Left child
+    struct TreeNode *right; // Right child
+} TreeNode;
+
+// Function to create a new AST node
+TreeNode* createNode(NodeType type, Token token) {
+    TreeNode *node = (TreeNode*)malloc(sizeof(TreeNode));
+    node->type = type;
+    node->token = token;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+// Parse functions
+TreeNode* parseExpression(Token tokens[], int *currentToken);
+TreeNode* parseOperation(Token tokens[], int *currentToken);
+TreeNode* parseLiteral(Token tokens[], int *currentToken);
+
+// Parse an entire program
+TreeNode* parseProgram(Token tokens[]) {
+    int currentToken = 0;
+    return parseExpression(tokens, &currentToken);
+}
+
+// Parse an expression
+TreeNode* parseExpression(Token tokens[], int *currentToken) {
+    return parseOperation(tokens, currentToken);
+}
+
+// Parse an operation
+TreeNode* parseOperation(Token tokens[], int *currentToken) {
+    TreeNode *left = parseLiteral(tokens, currentToken);
+
+    while (tokens[*currentToken].type == PIU || tokens[*currentToken].type == PER) {
+        Token operatorToken = tokens[(*currentToken)++];
+        TreeNode *right = parseLiteral(tokens, currentToken);
+
+        TreeNode *operationNode = createNode(OPERATION_NODE, operatorToken);
+        operationNode->left = left;
+        operationNode->right = right;
+
+        left = operationNode;
+    }
+
+    return left;
+}
+
+// Parse a literal
+TreeNode* parseLiteral(Token tokens[], int *currentToken) {
+    Token literalToken = tokens[(*currentToken)++];
+    return createNode(LITERAL_NODE, literalToken);
+}
+
+// Print AST
+void printAST(TreeNode *root) {
+    if (root == NULL) {
+        return;
+    }
+
+    switch (root->type) {
+        case PROGRAM_NODE:
+        case EXPRESSION_NODE:
+            printAST(root->left);
+            break;
+
+        case OPERATION_NODE:
+            printf("(");
+            printAST(root->left);
+            printf(" %s ", getTokenTypeName(root->token.type));
+            printAST(root->right);
+            printf(")");
+            break;
+
+        case LITERAL_NODE:
+            printf("%s", root->token.lexeme);
+            break;
+
+        default:
+            printf("UNKNOWN_NODE_TYPE");
+    }
+}
+
+int main() {
+    const char *input = "12 piu 4 per 6";
+    Token tokens[] = {
+        tokenizeWord("12"),
+        tokenizeWord("piu"),
+        tokenizeWord("4"),
+        tokenizeWord("per"),
+        tokenizeWord("6"),
+    };
+
+    TreeNode *ast = parseProgram(tokens);
+
+    // Print AST
+    printAST(ast);
+    printf("\n");
+
+    return 0;
+}
