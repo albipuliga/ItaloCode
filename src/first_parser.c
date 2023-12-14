@@ -296,13 +296,18 @@ void printASTIndented(TreeNode* root, int level) {
 
 int main() {
     const char *input = "12 piu 4 per 6";
-    Token tokens[] = {
-        tokenizeWord("12"),
-        tokenizeWord("piu"),
-        tokenizeWord("4"),
-        tokenizeWord("per"),
-        tokenizeWord("6"),
-    };
+    const char delimiters[] = " \t\n"; // Word delimiters
+    char *copy = strdup(input); // Make a copy of the input string
+    char *word = strtok(copy, delimiters); // Tokenize the first word
+    Token tokens[100]; // Array of tokens
+    int tokenCount = 0; // Counter for the number of tokens
+
+    while (word != NULL)
+    {
+        tokens[tokenCount++] = tokenizeWord(word);
+        word = strtok(NULL, delimiters);
+    }
+    free(copy);
 
     TreeNode *ast = parseProgram(tokens);
 
