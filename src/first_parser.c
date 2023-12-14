@@ -173,6 +173,7 @@ typedef enum {
     EXPRESSION_NODE,
     OPERATION_NODE,
     LITERAL_NODE,
+    VARIABILE_NODE,
 } NodeType;
 
 // AST Node structure
@@ -193,11 +194,24 @@ TreeNode* createNode(NodeType type, Token token) {
     return node;
 }
 
-// Parse functions
+////////////Parse functions////////////
 TreeNode* parseExpression(Token tokens[], int *currentToken);
-TreeNode* parseOperation(Token tokens[], int *currentToken);
-TreeNode* parseLiteral(Token tokens[], int *currentToken);
+TreeNode* parseTerm(Token tokens[], int *currentToken);
+TreeNode* parseFactor(Token tokens[], int *currentToken);
 
+// Parse a literal
+TreeNode* parseLiteral(Token tokens[], int *currentToken) {
+    Token literalToken = tokens[(*currentToken)++];
+
+    // Check if the literal is a number
+    if (literalToken.type == NUMERO) {
+        return createNode(LITERAL_NODE, literalToken);
+    } else {
+        // You might need additional logic here for other types of literals
+        // For simplicity, let's assume all other literals are treated as variables
+        return createNode(VARIABILE_NODE, literalToken);
+    }
+}
 // Parse an entire program
 TreeNode* parseProgram(Token tokens[]) {
     int currentToken = 0;
@@ -206,16 +220,16 @@ TreeNode* parseProgram(Token tokens[]) {
 
 // Parse an expression
 TreeNode* parseExpression(Token tokens[], int *currentToken) {
-    return parseOperation(tokens, currentToken);
+    return parseTerm(tokens, currentToken);
 }
 
-// Parse an operation
-TreeNode* parseOperation(Token tokens[], int *currentToken) {
-    TreeNode *left = parseLiteral(tokens, currentToken);
+// Parse a term (handles addition and subtraction)
+TreeNode* parseTerm(Token tokens[], int *currentToken) {
+    TreeNode *left = parseFactor(tokens, currentToken);
 
-    while (tokens[*currentToken].type == PIU || tokens[*currentToken].type == PER) {
+    while (tokens[*currentToken].type == PIU || tokens[*currentToken].type == MENO) {
         Token operatorToken = tokens[(*currentToken)++];
-        TreeNode *right = parseLiteral(tokens, currentToken);
+        TreeNode *right = parseFactor(tokens, currentToken);
 
         TreeNode *operationNode = createNode(OPERATION_NODE, operatorToken);
         operationNode->left = left;
@@ -227,10 +241,22 @@ TreeNode* parseOperation(Token tokens[], int *currentToken) {
     return left;
 }
 
-// Parse a literal
-TreeNode* parseLiteral(Token tokens[], int *currentToken) {
-    Token literalToken = tokens[(*currentToken)++];
-    return createNode(LITERAL_NODE, literalToken);
+// Parse a factor (handles multiplication and division)
+TreeNode* parseFactor(Token tokens[], int *currentToken) {
+    TreeNode *left = parseLiteral(tokens, currentToken);
+
+    while (tokens[*currentToken].type == PER || tokens[*currentToken].type == DIVISO) {
+        Token operatorToken = tokens[(*currentToken)++];
+        TreeNode *right = parseLiteral(tokens, currentToken);
+
+        TreeNode *operationNode = createNode(OPERATION_NODE, operatorToken);
+        operationNode->left = left;
+        operationNode->right = right;
+
+        left = operationNode;
+    }
+
+    return left;
 }
 
 // Print AST
@@ -293,9 +319,25 @@ void printASTIndented(TreeNode* root, int level) {
             printf("UNKNOWN_NODE_TYPE\n");
     }
 }
+// Function to evaluate an AST node
+int evaluate(TreeNode *node) {
+    if (node == NULL) return 0;
 
+    switch (node->type) {
+        case LITERAL_NODE:
+            return atoi(node->token.lexeme);
+        case OPERATION_NODE:
+            if (node->token.type == PIU)
+                return evaluate(node->left) + evaluate(node->right);
+            else if (node->token.type == PER)
+                return evaluate(node->left) * evaluate(node->right);
+            return 0;
+        default:
+            return 0;
+    }
+}
 int main() {
-    const char *input = "12 piu 4 per 6";
+    const char *input = "12 piu 4 per 6 piu 3";
     const char delimiters[] = " \t\n"; // Word delimiters
     char *copy = strdup(input); // Make a copy of the input string
     char *word = strtok(copy, delimiters); // Tokenize the first word
@@ -316,6 +358,7 @@ int main() {
     printf("\n");
     printASTIndented(ast, 0);
     printf("\n");
-
+    int result = evaluate(ast);
+    printf("Evaluation Result: %d\n", result);
     return 0;
 }
