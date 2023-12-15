@@ -54,7 +54,8 @@ TreeNode* parseLiteral(Token tokens[], int *currentToken) {
 // Parse an entire program
 TreeNode* parseProgram(Token tokens[]) {
     int currentToken = 0;
-    return parseExpression(tokens, &currentToken);
+    TreeNode *result = parseExpression(tokens, &currentToken);
+    return result;
 }
 
 // Parse an expression
@@ -168,9 +169,12 @@ int evaluate(TreeNode *node) {
         case OPERATION_NODE:
             if (node->token.type == PIU)
                 return evaluate(node->left) + evaluate(node->right);
+            else if (node->token.type == MENO)
+                return evaluate(node->left) - evaluate(node->right);
             else if (node->token.type == PER)
                 return evaluate(node->left) * evaluate(node->right);
-            return 0;
+            else if (node->token.type == DIVISO)
+                return evaluate(node->left) / evaluate(node->right);
         default:
             return 0;
     }
