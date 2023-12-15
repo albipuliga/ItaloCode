@@ -321,7 +321,7 @@ int main() {
     char buffer[1024]; // Buffer to store each line of the file
 
     // Open the file
-    file = fopen("src/input.txt", "r");
+    file = fopen("input.txt", "r"); //src/
     if (file == NULL) {
         perror("Error opening file");
         return 1;
@@ -329,7 +329,7 @@ int main() {
 
     // Read and process each line of the file
     while (fgets(buffer, sizeof(buffer), file)) {
-        const char delimiters[] = " ciaociao"; // Word delimiters
+        const char delimiters[] = " !"; // Word delimiters
         char *copy = strdup(buffer); // Make a copy of the buffer
         char *word = strtok(copy, delimiters); // Tokenize the first word
         Token tokens[100]; // Array of tokens
