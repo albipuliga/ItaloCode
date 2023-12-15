@@ -2,35 +2,8 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-
-// Token types
-typedef enum {
-    CIAO,                   //
-    CIAOCIAO,               // return
-    INT,                    // int
-    STRING,                 // string
-    OPEN_PARENTESIS,        // (
-    CLOSE_PARENTESIS,       // )
-    DUE_PUNTI,              // :
-    VIRGOLETTE,             // "
-    NUMERO,                 // number
-    VARIABILE,              // variable/identifier
-    SE,                     // if
-    OPPURE,                 // else
-    PIU,                    // +
-    MENO,                   // -
-    PER,                    // *
-    DIVISO,                 // /
-    UGUALE,                 // =
-    DIVERSO,                // !=
-    MINORE,                 // <
-    MAGGIORE,               // >
-    STAMPA,                 // print
-    LEGGI,                  // scanf
-    BASTA,                  // break
-    E,                      // &&
-    O,                      // ||
-} TokenType;
+#include "lexer.h"
+#include "token.h"
 
 
 // given an index it will return the name of the unum token
@@ -69,13 +42,6 @@ const char *getTokenTypeName(TokenType type) {
 
     return "UNKNOWN_TOKEN_TYPE";
 }
-
-
-// Token structure
-typedef struct {
-    TokenType type;
-    char *lexeme;
-} Token;
 
 
 // Function to check if a string is a keyword and return its token type
