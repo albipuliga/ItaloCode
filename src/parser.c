@@ -266,6 +266,7 @@ char* evaluate(TreeNode *node) {
                     free(rightValueStr);
                     return result;
                 } else {
+                    fprintf(stderr, "Error: Division by zero, discard result");
                     char *errorResult = malloc(strlen("Error: Division by zero") + 1);
                     strcpy(errorResult, "Error: Division by zero");
                     free(leftValueStr);
