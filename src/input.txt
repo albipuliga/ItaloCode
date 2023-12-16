@@ -1,4 +1,1 @@
-6 meno 3 piu 3 !
-6 diviso 3 !
-6 piu 4 !
-10 diviso 2 meno 2 per 2 !
+10 meno piu 3 !
