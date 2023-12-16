@@ -201,7 +201,7 @@ char* evaluate(TreeNode *node) {
     char* leftValueStr = NULL;
     char* rightValueStr = NULL;
     char *result;
-    
+
     // Function to evaluate an AST node and return the result as a string
     if (node == NULL) {
         char *emptyString = malloc(1);
@@ -287,6 +287,8 @@ char* evaluate(TreeNode *node) {
 }
 
 int main() {
+    printf("\nITALO CODE\n");
+    printf("Let's learn some math!\n\n\n");
     FILE *file;
     char buffer[1024]; // Buffer to store each line of the file
 
