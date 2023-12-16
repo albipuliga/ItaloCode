@@ -198,6 +198,10 @@ void printASTIndented(TreeNode* root, int level) {
 
 // Function to evaluate an AST node
 char* evaluate(TreeNode *node) {
+    char* leftValueStr = NULL;
+    char* rightValueStr = NULL;
+    char *result;
+    
     // Function to evaluate an AST node and return the result as a string
     if (node == NULL) {
         char *emptyString = malloc(1);
@@ -205,7 +209,6 @@ char* evaluate(TreeNode *node) {
         return emptyString;
     }
 
-    char *result;
     switch (node->type) {
         case LITERAL_NODE:
             result = malloc(strlen(node->token.lexeme) + 1);
@@ -218,8 +221,8 @@ char* evaluate(TreeNode *node) {
             return result;
 
         case OPERATION_NODE:
-            char* leftValueStr = evaluate(node->left);
-            char* rightValueStr = evaluate(node->right);
+            leftValueStr = evaluate(node->left);
+            rightValueStr = evaluate(node->right);
             if (leftValueStr == NULL || rightValueStr == NULL) {
                 // Handle error: Memory allocation failure in subexpression evaluation
                 char *errorResult = malloc(strlen("Error: Memory allocation failure") + 1);
