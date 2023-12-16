@@ -2,45 +2,41 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-
-// Token types
-typedef enum {
-    TOKEN_KEYWORD,          // CIAO, PASTA, ALDENTE, etc.
-    TOKEN_DATATYPE,         // CARBS, VEGGIE, FORMAGGIO, OIL
-    TOKEN_ARITHMETIC_OP,    // +, -, *, /
-    TOKEN_COMPARISON_OP,    // ==, !=, <, >, <=, >=, =
-    TOKEN_LOGICAL_OP,       // E, OPPURE
-    TOKEN_PUNCTUATION,      // ;, , (comma), etc.
-    TOKEN_BRACE,            // {, }, [, ] ,(, )
-    SINGLE_LINE_COMMENT,    // // Comment
-    TOKEN_IDENTIFIER,       // User-defined names
-    TOKEN_NUMBER,           // Numeric literals
-    TOKEN_FOR_LOOP,         // "for" loop
-    TOKEN_WHILE_LOOP,       // "while" loop
-    TOKEN_EOF               // End of file/input
-} TokenType;
+#include "lexer.h"
+#include "token.h"
 
 
 // given an index it will return the name of the unum token
 const char *getTokenTypeName(TokenType type) {
     const char *typeNames[] = {
-            "TOKEN_KEYWORD",
-            "TOKEN_DATATYPE",
-            "TOKEN_ARITHMETIC_OP",
-            "TOKEN_COMPARISON_OP",
-            "TOKEN_LOGICAL_OP",
-            "TOKEN_PUNCTUATION",
-            "TOKEN_BRACE",
-            "SINGLE_LINE_COMMENT",
-            "TOKEN_IDENTIFIER",
-            "TOKEN_NUMBER",
-            "TOKEN_FOR_LOOP",
-            "TOKEN_WHILE_LOOP",
-            "DATA_TYPE",
-            "TOKEN_EOF"
+            "CIAO",
+            "CIAOCIAO",
+            "INT",
+            "STRING",
+            "OPEN_PARENTESIS",
+            "CLOSE_PARENTESIS",
+            "DUE_PUNTI",
+            "VIRGOLETTE",
+            "NUMERO",
+            "VARIABILE",
+            "SE",
+            "OPPURE",
+            "PIU",
+            "MENO",
+            "PER",
+            "DIVISO",
+            "UGUALE",
+            "DIVERSO",
+            "MINORE",
+            "MAGGIORE",
+            "STAMPA",
+            "LEGGI",
+            "BASTA",
+            "E",
+            "O"
     };
 
-    if (type >= TOKEN_KEYWORD && type <= TOKEN_EOF) {
+    if (type >= CIAO && type <= O) {
         return typeNames[type];
     }
 
@@ -48,69 +44,34 @@ const char *getTokenTypeName(TokenType type) {
 }
 
 
-// Token structure
-typedef struct {
-    TokenType type;
-    char *lexeme;
-} Token;
-
-
 // Function to check if a string is a keyword and return its token type
 TokenType checkKeyword(char *str) {
     // Check for Keywords
-    if (strcmp(str, "CIAO") == 0 || strcmp(str, "CIAOCIAO") == 0 ||strcmp(str, "Primo") == 0 ||
-        strcmp(str, "Antipasti") == 0 || strcmp(str, "Posate") == 0 || strcmp(str, "Leggi") == 0 ||
-        strcmp(str, "Scrivi") == 0 || strcmp(str, "Basta") == 0  || strcmp(str, "Ritorno") == 0 ||
-        strcmp(str, "Frutta") == 0 ) {
-        return TOKEN_KEYWORD;
-    }
-        // Check for Data Types
-    else if (strcmp(str, "CARBS") == 0 || strcmp(str, "VEGGIE") == 0 || strcmp(str, "FORMAGGIO") == 0 ||
-             strcmp(str, "OLIO") == 0) {
-        return TOKEN_DATATYPE;
-    }
-        // Check for Logical Operators
-    else if (strcmp(str, "E") == 0 || strcmp(str, "OPPURE") == 0) {
-        return TOKEN_LOGICAL_OP;
-    }
-        // Check for Arithmetic Operators
-    else if (strcmp(str, "piu") == 0 || strcmp(str, "meno") == 0 || strcmp(str, "per") == 0 || strcmp(str, "diviso") == 0) {
-        return TOKEN_ARITHMETIC_OP;
-    }
-        // Check for Comparison Operators
-    else if (strcmp(str, "!=") == 0 || strcmp(str, "<") == 0 || strcmp(str, ">") == 0 || strcmp(str, "=") == 0) {
-        return TOKEN_COMPARISON_OP;
-    }
-        // Check for Punctuation
-    else if (strcmp(str, ";") == 0 || strcmp(str, ",") == 0 || strcmp(str, ":") == 0 || strcmp(str, "|") == 0 ||
-             strcmp(str, "\"") == 0) {
-        return TOKEN_PUNCTUATION;
-    }
-        // Check for Numbers
-    else if (strspn(str, "0123456789") == strlen(str)) {
-        return TOKEN_NUMBER;
-    }
-        // Check for "for" loop
-    else if (strcmp(str, "In ") == 0 || strcmp(str, "Forno") == 0 || strcmp(str, "gradi") == 0 ) {
-        return TOKEN_FOR_LOOP;
-    }
-        // Check for "while" loop
-    else if (strcmp(str, "In") == 0 || strcmp(str, "Padella") == 0 || strcmp(str, "min") == 0  ){
-        return TOKEN_WHILE_LOOP;
-    }
-        // Check for Single Line Comment
-    else if (strncmp(str, "PS", 2) == 0) {
-        return SINGLE_LINE_COMMENT;
-    }
-        // Check for Brace
-    else if (strcmp(str, "[") == 0 || strcmp(str, "]") == 0 || strcmp(str, "{") == 0 || strcmp(str, "}") == 0 ||
-             strcmp(str, "(") == 0 || strcmp(str, ")") == 0) {
-        return TOKEN_BRACE;
-    }
-        // Default to Identifier is variable
-    else {
-        return TOKEN_IDENTIFIER;
-    }
+    if (strcmp(str, "ciao") == 0) {return CIAO;}
+    else if (strcmp(str, "ciaociao") == 0) {return CIAOCIAO;}
+    else if (strcmp(str, "int") == 0) {return INT;}
+    else if (strcmp(str, "string") == 0) {return STRING;}
+    else if (strcmp(str, "(") == 0) {return OPEN_PARENTESIS;}
+    else if (strcmp(str, ")") == 0) {return CLOSE_PARENTESIS;}
+    else if (strcmp(str, ":") == 0) {return DUE_PUNTI;}
+    else if (strcmp(str, "\"") == 0) {return VIRGOLETTE;}
+    else if (strcmp(str, "se") == 0) {return SE;}
+    else if (strcmp(str, "oppure") == 0) {return OPPURE;}
+    else if (strcmp(str, "piu") == 0) {return PIU;}
+    else if (strcmp(str, "meno") == 0) {return MENO;}
+    else if (strcmp(str, "per") == 0) {return PER;}
+    else if (strcmp(str, "diviso") == 0) {return DIVISO;}
+    else if (strcmp(str, "=") == 0) {return UGUALE;}
+    else if (strcmp(str, "!=") == 0) {return DIVERSO;}
+    else if (strcmp(str, "<") == 0) {return MINORE;}
+    else if (strcmp(str, ">") == 0) {return MAGGIORE;}
+    else if (strspn(str, "0123456789") == strlen(str)) {return NUMERO;}
+    else if (strcmp(str, "stampa") == 0) {return STAMPA;}
+    else if (strcmp(str, "leggi") == 0) {return LEGGI;}
+    else if (strcmp(str, "basta") == 0) {return BASTA;}
+    else if (strcmp(str, "e") == 0) {return E;}
+    else if (strcmp(str, "o") == 0) {return O;}
+    else {return VARIABILE;} // Default to Identifier is variable
 }
 
 
@@ -147,11 +108,11 @@ void lexer(const char *input) {
     free(copy);
 }
 
-int main() {
+int test() {
     //const char *input = "for ( int i = 0 ; i < 10 ; i + + ) { CIAO } while ( x > 0 ) { PASTA } 3 4 34";
-    const char *input = "12 , ; Forno PS [ piu OPPURE VEGGIE OLIO Frutta CIAOCIAO";
+    const char *input = "12 piu oppure ciaociao ( )";
     lexer(input);
-
     return 0;
 }
+// void main() {test();}
 

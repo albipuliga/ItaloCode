@@ -1,0 +1,5 @@
+10 meno piu 3 !
+5 piu 3 diviso 0 !
+4 diviso 0 !
+8 meno 2
+stampa ciao !
