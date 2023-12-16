@@ -2,12 +2,17 @@
 
 ## Table of Contents
 - [Project Overview](#project-overview)
+- [Authors](#authors)
 - [Features](#features)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage](#usage)
-- [Authors](#authors)
+- [How It Works](#how-it-works)
+  - [Compilation and Linking](#compilation-and-linking)
+  - [Input Format](#input-format)
+  - [Arithmetic Operations](#arithmetic-operations)
+  - [Print Statements](#print-statements)
 - [Develop a Lexer (Tokenizer)](#develop-a-lexer-tokenizer)
   - [Implementation Overview (`lexer.c`)](#implementation-overview-lexerc)
     - [`getTokenTypeName`](#gettokentypename)
@@ -35,11 +40,17 @@
   - [Compilation and Linking Commands](#compilation-and-linking-commands)
 
 ## Project Overview
-This project aims to create a simple, user-friendly programming language based on C, inspired by Italian cuisine and language. It's designed to make programming accessible and engaging, especially for Italian speakers and culinary enthusiasts.
+This project aims to create a simple, user-friendly programming language based on C, inspired by Italian cuisine and language. It is designed to be highly scalable, allowing for the easy addition of new tokens and the configuration of corresponding parser functions. The project currently supports basic arithmetic operations and print statements, providing a solid foundation for further development.
+
+## Authors
+- Diana Rubaga
+- Alberto Puliga
+- Gregorio Orlando
 
 ## Features
-- **Culinary-Themed Syntax**: Utilizes Italian culinary terms for programming constructs, making it intuitive for our target audience.
+- **Italian Terms Syntax**: Utilizes Italian terms for programming constructs, making it intuitive for our target audience.
 - **Simple and Educational**: Ideal for beginners and educational purposes, particularly in Italian learning environments.
+- **Scalable**: Easy addition of new tokens and configuration of parser functions for extensibility.
 - **Focus on Basic Programming Concepts**: Emphasizes fundamental concepts in programming without the complexity of more advanced languages.
 
 ## Getting Started
@@ -48,22 +59,50 @@ This project aims to create a simple, user-friendly programming language based o
 - C compiler (like GCC) installed on your system.
 
 ### Installation
-- Clone the repository: `git clone [repository link]`
-- Compile the source files using your C compiler.
+- Clone the repository: `git clone https://github.com/albipuliga/ItaloCode`
+- Compile the source files using your C compiler. Run this comand to link lexer.c with parser.c thank to the header files we prepared.
+```bash
+gcc lexer.c parser.c -o myprogram
+```
 - Run the executable to start using the language interpreter.
 
 ## Usage
-Write your code using the Italian culinary-themed syntax. For example:
-- `CIAO()` as the main function.
-- Data types like `CARBS`, `VEGGIE` for integers and strings.
-- Control structures like `Fusilli` for loops.
+Write your code using the Italian syntax. For example:
+- `stampa` for printing. Add what you want to print after the command `stampa` without spaces.
+- `piu`, `meno` `per`, and `diviso` for mathematical arithmetics.
+- ` !` for ending each line. At the end of eask line a esclamation mark is needed.
+- write everything in lower letter.
 
 Refer to the documentation for detailed syntax and examples.
 
-## Authors
-- Diana Rubaga
-- Alberto Puliga
-- Gregorio Orlando
+## How It Works
+### Compilation and Linking
+To compile and link the lexer implementation (`lexer.c`) with the parser (`parser.c`), use the following commands:
+```bash
+gcc lexer.c parser.c -o myprogram
+```
+This compiles both source files and links them into an executable named myprogram. The header files (token.h and lexer.h) ensure that necessary declarations are available during compilation, promoting code organization and ease of maintenance.
+### Input Format
+1. Each line of code in the input file (input.txt) should end with a " !" to denote the end of the line.
+2. All lines in input.txt should be written in lowercase, and the use of parentheses does not have any specific meaning in the current implementation.
+### Arithmetic Operations
+To perform arithmetic operations, follow the format:
+```bash
+number operation number !
+```
+for example:
+```bash
+5 + 3 !
+```
+### Print Statements
+To execute print statements, use the following format:
+```bash
+stampa what-u-want-to-print !
+```
+for example:
+```bash
+stampa ciao-come-stai? !
+```
 
 ## Develop a Lexer (Tokenizer)
 ### Implementation Overview (`lexer.c`)

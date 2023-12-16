@@ -88,7 +88,7 @@ TreeNode* parseTerm(Token tokens[], int *currentToken) {
 
             left = operationNode;
         } else {
-            fprintf(stderr, "Error: Missing argument after operator %s\n", getTokenTypeName(operatorToken.type));
+            fprintf(stderr, "Errore: Manca argomento dopo l'operazione %s\n", getTokenTypeName(operatorToken.type));
             // Handle the error (exit or return an error code)
         }
     }
@@ -139,7 +139,7 @@ void printAST(TreeNode *root) {
             break;
 
         case VARIABLE_NODE:
-            printf("VARIABLE_NODE: %s", root->token.lexeme);  // Display variable name
+            printf("VARIABLILE: %s", root->token.lexeme);  // Display variable name
             break;
 
         case PRINT_NODE:
@@ -149,7 +149,7 @@ void printAST(TreeNode *root) {
             break;
 
         default:
-            printf("UNKNOWN_NODE_TYPE");
+            printf("NODO_NON_RICONOSCIUTO");
     }
 }
 
@@ -167,12 +167,12 @@ void printASTIndented(TreeNode* root, int level) {
     switch (root->type) {
         case PROGRAM_NODE:
         case EXPRESSION_NODE:
-            printf("Expression:\n");
+            printf("Espressione:\n");
             printASTIndented(root->left, level + 1);
             break;
 
         case OPERATION_NODE:
-            printf("Operation: %s\n", getTokenTypeName(root->token.type));
+            printf("Operazione: %s\n", getTokenTypeName(root->token.type));
             printASTIndented(root->left, level + 1);
             printASTIndented(root->right, level + 1);
             break;
@@ -192,7 +192,7 @@ void printASTIndented(TreeNode* root, int level) {
             break;
 
         default:
-            printf("UNKNOWN_NODE_TYPE\n");
+            printf("NODO_NON_RICONOSCIUTO");
     }
 }
 
@@ -225,8 +225,8 @@ char* evaluate(TreeNode *node) {
             rightValueStr = evaluate(node->right);
             if (leftValueStr == NULL || rightValueStr == NULL) {
                 // Handle error: Memory allocation failure in subexpression evaluation
-                char *errorResult = malloc(strlen("Error: Memory allocation failure") + 1);
-                strcpy(errorResult, "Error: Memory allocation failure");
+                char *errorResult = malloc(strlen("Errore: Memory allocation failure") + 1);
+                strcpy(errorResult, "Errore: Memory allocation failure");
                 // Free memory for partial results
                 free(leftValueStr);
                 free(rightValueStr);
@@ -269,9 +269,9 @@ char* evaluate(TreeNode *node) {
                     free(rightValueStr);
                     return result;
                 } else {
-                    fprintf(stderr, "Error: Division by zero, discard result");
-                    char *errorResult = malloc(strlen("Error: Division by zero") + 1);
-                    strcpy(errorResult, "Error: Division by zero");
+                    fprintf(stderr, "Errore: Divisione per zero, ignora risultato");
+                    char *errorResult = malloc(strlen("Errore: Impossible dividere per zero") + 1);
+                    strcpy(errorResult, "Errore: Impossible dividere per zero");
                     free(leftValueStr);
                     free(rightValueStr);
                     return errorResult;
@@ -288,14 +288,14 @@ char* evaluate(TreeNode *node) {
 
 int main() {
     printf("\nITALO CODE\n");
-    printf("Let's learn some math!\n\n\n");
+    printf("Impariamo la matematica!\n\n\n");
     FILE *file;
     char buffer[1024]; // Buffer to store each line of the file
 
     // Open the file
     file = fopen("input.txt", "r"); //src/
     if (file == NULL) {
-        perror("Error opening file");
+        perror("Errore nell'apertura del file input.txt");
         return 1;
     }
 
@@ -308,7 +308,7 @@ int main() {
         if (newlinePos == lineLength - 1) {
             // Check if the substring from newlinePos to the end is " !"
             if (strncmp(buffer + newlinePos - 2, " !", 2) != 0) {
-                fprintf(stderr, "Error: There is a line that does not end with ' !'\n");
+                fprintf(stderr, "Errore: Tutte le linee devono finire con: ' !' \nATTENZIONE: una linea e' senza\n");
                 fclose(file);
                 return 1;
             }
@@ -333,7 +333,7 @@ int main() {
         printf("\n");
         printASTIndented(ast, 0);
         char *result = evaluate(ast);
-        printf("--> Evaluation Result: %s\n\n", result);
+        printf("--> Risultato: %s\n\n", result);
 
         free(result);  // Free the dynamically allocated memory
     }
