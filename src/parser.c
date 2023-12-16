@@ -301,6 +301,7 @@ int main() {
 
     // Read and process each line of the file
     while (fgets(buffer, sizeof(buffer), file)) {
+        // printf("Linea: %s\n", buffer);
         // Check if the line ends with " !"
         size_t lineLength = strlen(buffer);
         size_t newlinePos = strcspn(buffer, "\n");
@@ -308,7 +309,7 @@ int main() {
         if (newlinePos == lineLength - 1) {
             // Check if the substring from newlinePos to the end is " !"
             if (strncmp(buffer + newlinePos - 2, " !", 2) != 0) {
-                fprintf(stderr, "Errore: Tutte le linee devono finire con: ' !' \nATTENZIONE: una linea e' senza\n");
+                fprintf(stderr, "Errore: Tutte le linee devono finire con: ' !' \nATTENZIONE: una linea e' senza ' !'\n");
                 fclose(file);
                 return 1;
             }
@@ -322,6 +323,10 @@ int main() {
         while (word != NULL) {
             tokens[tokenCount++] = tokenizeWord(word);
             word = strtok(NULL, delimiters);
+            // printf("Token: %s\n", getTokenTypeName(tokens[tokenCount - 1].type));
+        }
+        for (int i = tokenCount; i < sizeof(tokens) / sizeof(tokens[0]); ++i) {  // empty the rest of the memory to avoid overlap of lines
+            tokens[i] = (Token){0, ""};
         }
 
         free(copy);
