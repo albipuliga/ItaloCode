@@ -21,6 +21,7 @@ const char *getTokenTypeName(TokenType type) {
             "VARIABILE",
             "SE",
             "OPPURE",
+            "PS",
             "PIU",
             "MENO",
             "PER",
@@ -57,6 +58,7 @@ TokenType checkKeyword(char *str) {
     else if (strcmp(str, "\"") == 0) {return VIRGOLETTE;}
     else if (strcmp(str, "se") == 0) {return SE;}
     else if (strcmp(str, "oppure") == 0) {return OPPURE;}
+    else if (strcmp(str, "ps") == 0) {return PS;}
     else if (strcmp(str, "piu") == 0) {return PIU;}
     else if (strcmp(str, "meno") == 0) {return MENO;}
     else if (strcmp(str, "per") == 0) {return PER;}
@@ -109,7 +111,7 @@ void lexer(const char *input) {
 }
 
 int test() {
-    const char *input = "12 piu oppure ciaociao ( )";
+    const char *input = "12 ps piu oppure ciaociao ( )";
     lexer(input);
     return 0;
 }
