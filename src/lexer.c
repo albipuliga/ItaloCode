@@ -115,5 +115,4 @@ int test() {
     lexer(input);
     return 0;
 }
-void main() {test();}
-
+// void main() {test();}
