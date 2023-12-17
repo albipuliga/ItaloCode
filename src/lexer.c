@@ -13,8 +13,8 @@ const char *getTokenTypeName(TokenType type) {
             "CIAOCIAO",
             "INT",
             "STRING",
-            "OPEN_PARENTESIS",
-            "CLOSE_PARENTESIS",
+            "OPEN_PARENTHESIS",
+            "CLOSE_PARENTHESIS",
             "DUE_PUNTI",
             "VIRGOLETTE",
             "NUMERO",
@@ -51,8 +51,8 @@ TokenType checkKeyword(char *str) {
     else if (strcmp(str, "ciaociao") == 0) {return CIAOCIAO;}
     else if (strcmp(str, "int") == 0) {return INT;}
     else if (strcmp(str, "string") == 0) {return STRING;}
-    else if (strcmp(str, "(") == 0) {return OPEN_PARENTESIS;}
-    else if (strcmp(str, ")") == 0) {return CLOSE_PARENTESIS;}
+    else if (strcmp(str, "(") == 0) {return OPEN_PARENTHESIS;}
+    else if (strcmp(str, ")") == 0) {return CLOSE_PARENTHESIS;}
     else if (strcmp(str, ":") == 0) {return DUE_PUNTI;}
     else if (strcmp(str, "\"") == 0) {return VIRGOLETTE;}
     else if (strcmp(str, "se") == 0) {return SE;}
@@ -109,7 +109,6 @@ void lexer(const char *input) {
 }
 
 int test() {
-    //const char *input = "for ( int i = 0 ; i < 10 ; i + + ) { CIAO } while ( x > 0 ) { PASTA } 3 4 34";
     const char *input = "12 piu oppure ciaociao ( )";
     lexer(input);
     return 0;

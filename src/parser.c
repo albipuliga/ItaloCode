@@ -89,7 +89,7 @@ TreeNode* parseTerm(Token tokens[], int *currentToken) {
             left = operationNode;
         } else {
             fprintf(stderr, "Errore: Manca argomento dopo l'operazione %s\n", getTokenTypeName(operatorToken.type));
-            // Handle the error (exit or return an error code)
+            return NULL;
         }
     }
 
