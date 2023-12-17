@@ -5,6 +5,7 @@
 - [Project Overview](#project-overview)
 - [Authors](#authors)
 - [Features](#features)
+- [Additional information \& resources](#additional-information--resources)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -55,7 +56,9 @@ This project aims to create a simple, user-friendly programming language based o
 - **Simple and Educational**: Ideal for beginners and educational purposes, particularly in Italian learning environments.
 - **Scalable**: Easy addition of new tokens and configuration of parser functions for extensibility.
 - **Focus on Basic Programming Concepts**: Emphasizes fundamental concepts in programming without the complexity of more advanced languages.
-- **For more infos** go in `documentation` folder to find a PDF and Videos Demo.
+
+## Additional information & resources
+Please check out the `./documentation` folder to find a detailed PDF report and videos showing the functioning of each file.
 
 ## Getting Started
 ### Prerequisites
