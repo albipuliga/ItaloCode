@@ -1,6 +1,7 @@
-# Italian Cuisine Inspired Programming Language
+*# Italian Cuisine Inspired Programming Language
 
 ## Table of Contents
+- [Table of Contents](#table-of-contents)
 - [Project Overview](#project-overview)
 - [Authors](#authors)
 - [Features](#features)
@@ -14,30 +15,32 @@
   - [Arithmetic Operations](#arithmetic-operations)
   - [Print Statements](#print-statements)
 - [Develop a Lexer (Tokenizer)](#develop-a-lexer-tokenizer)
-  - [Implementation Overview (lexer.c)](#implementation-overview-lexerc)
-    - [getTokenTypeName](#gettokentypename)
-    - [checkKeyword](#checkkeyword)
-    - [tokenizeWord](#tokenizeword)
-    - [lexer](#lexer)
-    - [test](#test)
-  - [Implementation Overview (parser.c)](#implementation-overview-parserc)
+  - [Implementation Overview (`lexer.c`)](#implementation-overview-lexerc)
+    - [`getTokenTypeName`](#gettokentypename)
+    - [`checkKeyword`](#checkkeyword)
+    - [`tokenizeWord`](#tokenizeword)
+    - [`lexer`](#lexer)
+    - [`test`](#test)
+  - [Implementation Overview (`parser.c`)](#implementation-overview-parserc)
     - [AST Node types](#ast-node-types)
     - [AST Node structure](#ast-node-structure)
-    - [createNode](#createnode)
+    - [`createNode`](#createnode)
     - [Parse functions](#parse-functions)
-    - [parseLiteral](#parseliteral)
-    - [parseProgram](#parseprogram)
-    - [parseExpression](#parseexpression)
-    - [parseTerm](#parseterm)
-    - [parseFactor](#parsefactor)
+    - [`parseLiteral`](#parseliteral)
+    - [`parseProgram`](#parseprogram)
+    - [`parseExpression`](#parseexpression)
+    - [`parseTerm`](#parseterm)
+    - [`parseFactor`](#parsefactor)
     - [Print AST](#print-ast)
-    - [printAST](#printast)
-    - [printASTIndented](#printastindented)
+    - [`printAST`](#printast)
+    - [`printASTIndented`](#printastindented)
     - [Evaluate AST](#evaluate-ast)
-    - [evaluate](#evaluate)
+    - [`evaluate`](#evaluate)
     - [Main function](#main-function)
-  - [Header Files for Lexer (token.h and lexer.h)](#header-files-for-lexer-tokenh-and-lexerh)
-  - [Compilation and Linking Commands](#compilation-and-linking-commands)
+- [Header Files for Lexer (`token.h` and `lexer.h`)](#header-files-for-lexer-tokenh-and-lexerh)
+  - [`token.h`](#tokenh)
+  - [`lexer.h`](#lexerh)
+- [Compilation and Linking Commands](#compilation-and-linking-commands)
 
 ## Project Overview
 This project aims to create a simple, user-friendly programming language based on C, inspired by Italian cuisine and language. It is designed to be highly scalable, allowing for the easy addition of new tokens and the configuration of corresponding parser functions. The project currently supports basic arithmetic operations and print statements, providing a solid foundation for further development.
@@ -60,7 +63,7 @@ This project aims to create a simple, user-friendly programming language based o
 
 ### Installation
 - Clone the repository: `git clone https://github.com/albipuliga/ItaloCode`
-- Compile the source files using your C compiler. Run this comand to link lexer.c with parser.c thank to the header files we prepared.
+- Compile the source files using your C compiler. Run this command to link lexer.c with parser.c thank to the header files we prepared.
 ```bash
 gcc lexer.c parser.c -o myprogram
 ```
@@ -70,8 +73,8 @@ gcc lexer.c parser.c -o myprogram
 Write your code using the Italian syntax. For example:
 - `stampa` for printing. Add what you want to print after the command `stampa` without spaces.
 - `piu`, `meno` `per`, and `diviso` for mathematical arithmetics.
-- ` !` for ending each line. At the end of eask line a esclamation mark is needed.
-- write everything in lower letter.
+- ` !` for ending each line (with a blank space before it). At the end of each line a exclamation mark is needed.
+- Write everything in lower letter.
 
 Refer to the documentation for detailed syntax and examples.
 
@@ -81,10 +84,10 @@ To compile and link the lexer implementation (`lexer.c`) with the parser (`parse
 ```bash
 gcc lexer.c parser.c -o myprogram
 ```
-This compiles both source files and links them into an executable named myprogram. The header files (token.h and lexer.h) ensure that necessary declarations are available during compilation, promoting code organization and ease of maintenance.
+This compiles both source files and links them into an executable named `myprogram`. The header files (`token.h` and `lexer.h`) ensure that necessary declarations are available during compilation, promoting code organization and ease of maintenance.
 ### Input Format
-1. Each line of code in the input file (input.txt) should end with a " !" to denote the end of the line.
-2. All lines in input.txt should be written in lowercase, and the use of parentheses does not have any specific meaning in the current implementation.
+1. Each line of code in the input file (`input.txt`) should end with a " !" to denote the end of the line.
+2. All lines in `input.txt` should be written in lowercase, and the use of parentheses does not have any specific meaning in the current implementation.
 ### Arithmetic Operations
 To perform arithmetic operations, follow the format:
 ```bash
@@ -191,4 +194,5 @@ To compile and link the lexer implementation (`lexer.c`) with the parser (`parse
 gcc lexer.c parser.c -o myprogram
 ```
 
-These commands compile both source files and link them into an executable named myprogram. Header files ensure necessary declarations are available during compilation, allowing parser.c to use functions and structures defined in lexer.c.
+These commands compile both source files and link them into an executable named `myprogram`. Header files ensure necessary declarations are available during compilation, allowing `parser.c` to use functions and structures defined in `lexer.c`.
+*
