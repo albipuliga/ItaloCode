@@ -102,6 +102,12 @@ for example:
 ```bash
 5 + 3 !
 ```
+### Comments
+Writing `PS` you can write comments in to `input.txt`. It means that the all line will be discarded and the interpreter (`evaluate`) will skip to the next line. To use it, the grammar sintaz is:
+```bash
+PS this content will be discard !
+```
+This will allert you when running `./myprogram.exe` that there is a comment line, but his content will remain hiden.
 ### Print Statements
 To execute print statements, use the following format:
 ```bash
