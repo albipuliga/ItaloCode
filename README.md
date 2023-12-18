@@ -74,9 +74,10 @@ gcc lexer.c parser.c -o myprogram
 - Run the executable to start using the language interpreter.
 
 ## Usage
-Write your code using the Italian syntax. For example:
+Write your code using the Italian syntax. For instance:
 - `stampa` for printing. Add what you want to print after the command `stampa` without spaces.
 - `piu`, `meno` `per`, and `diviso` for mathematical arithmetics.
+- `PS` for comments. If you write `PS`, the interpreter will skipp everything in his line.
 - ` !` for ending each line (with a blank space before it). At the end of each line a exclamation mark is needed.
 - Write everything in lower letter.
 

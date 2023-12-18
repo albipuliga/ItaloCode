@@ -1,3 +1,7 @@
+stampa lets-do-some-math !
+10 piu 10 per 3 !
+PS skip this line !
+10 diviso 0 !
 10 meno 3 piu 3 !
 5 piu 3 !
 10 per 1 piu 10 !
@@ -6,6 +10,3 @@ stampa ciao-come-va !
 next-operations-will-contain-errors: !
 3 piu 4 stampa 3 !
 stampa ciao come va !
-10 diviso 0 !
-10 piu 10 diviso 0 !
-10 meno piu 10 !

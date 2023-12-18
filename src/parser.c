@@ -10,6 +10,7 @@ typedef enum {
     EXPRESSION_NODE,
     OPERATION_NODE,
     LITERAL_NODE,
+    COMMENT_NODE,
     VARIABLE_NODE,
     PRINT_NODE,
 } NodeType;
@@ -44,6 +45,8 @@ TreeNode* parseLiteral(Token tokens[], int *currentToken) {
 
     if (literalToken.type == NUMERO) {
         return createNode(LITERAL_NODE, literalToken);
+    } else if (literalToken.type == PS) {
+        return createNode(COMMENT_NODE, literalToken);
     } else {
         return createNode(VARIABLE_NODE, literalToken);
     }
@@ -142,6 +145,10 @@ void printAST(TreeNode *root) {
             printf("VARIABLILE: %s", root->token.lexeme);  // Display variable name
             break;
 
+        case COMMENT_NODE:
+            // printf("__PS hiden comment__");
+            break;
+
         case PRINT_NODE:
             printf("Stampa(");
             printAST(root->left);  // Print the content of the expression
@@ -185,6 +192,10 @@ void printASTIndented(TreeNode* root, int level) {
             //printf("%s", root->token.lexeme);  // Display variable name
             break;
 
+        case COMMENT_NODE:
+            //printf("__PS hiden comment__\n");
+            break;
+
         case PRINT_NODE:
             //printf("Stampa(");
             //printAST(root->left);  // Print the content of the expression
@@ -213,6 +224,10 @@ char* evaluate(TreeNode *node) {
         case LITERAL_NODE:
             result = malloc(strlen(node->token.lexeme) + 1);
             strcpy(result, node->token.lexeme);
+            return result;
+
+        case COMMENT_NODE:
+            result = NULL;
             return result;
 
         case VARIABLE_NODE:
@@ -338,8 +353,11 @@ int main() {
         printf("\n");
         printASTIndented(ast, 0);
         char *result = evaluate(ast);
-        printf("--> Risultato: %s\n\n", result);
-
+        if (result == NULL) {
+            printf("__PS hiden comment__\n\n");
+        } else {
+            printf("--> Risultato: %s\n\n", result);
+        }
         free(result);  // Free the dynamically allocated memory
     }
 
